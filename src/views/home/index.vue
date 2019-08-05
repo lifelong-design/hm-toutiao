@@ -7,50 +7,50 @@
       <el-menu
         :collapse="isCollapse"
         :collapse-transition="false"
-        default-active="1"
+        :default-active="$route.path"
         background-color="#002033"
         text-color="#fff"
         active-text-color="#ffd04b"
+        router
       >
-        <el-menu-item index="1">
+        <el-menu-item index="/">
           <i class="el-icon-s-home"></i>
           <span slot="title">首页</span>
         </el-menu-item>
-        <el-menu-item index="2">
+        <el-menu-item index="/article">
           <i class="el-icon-document"></i>
           <span slot="title">内容管理</span>
         </el-menu-item>
-        <el-menu-item index="3">
+        <el-menu-item index="/image">
           <i class="el-icon-picture"></i>
           <span slot="title">素材管理</span>
         </el-menu-item>
-        <el-menu-item index="4">
+        <el-menu-item index="/publish">
           <i class="el-icon-s-promotion"></i>
           <span slot="title">发布文章</span>
         </el-menu-item>
-        <el-menu-item index="5">
+        <el-menu-item index="/comment">
           <i class="el-icon-chat-dot-round"></i>
           <span slot="title">评论管理</span>
         </el-menu-item>
-        <el-menu-item index="6">
+        <el-menu-item index="/fans">
           <i class="el-icon-present"></i>
           <span slot="title">粉丝管理</span>
         </el-menu-item>
-        <el-menu-item index="7">
+        <el-menu-item index="/setting">
           <i class="el-icon-setting"></i>
           <span slot="title">个人设置</span>
         </el-menu-item>
       </el-menu>
     </el-aside>
-
     <el-container>
       <el-header>
-        <span @click="toggleMenu()" class="el-icon-s-fold"></span>
-        <span clsaa="text">江苏传智播客科技教育有限公司</span>
+        <span @click="toggleMenu" class="el-icon-s-fold"></span>
+        <span class="text">江苏传智播客科技教育有限公司</span>
         <!-- 下拉菜单 -->
         <el-dropdown class="my-dropdown">
           <span class="el-dropdown-link">
-            <img src="../../assets/images/avatar.jpg" alt />
+            <img class="member" src="../../assets/images/avatar.jpg" alt />
             管理员
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
@@ -62,6 +62,7 @@
       </el-header>
       <el-main>
         <!-- 二级菜单的出口，组件显示位置 -->
+        <router-view></router-view>
       </el-main>
     </el-container>
   </el-container>
@@ -81,7 +82,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped lang='less'>
 .el-menu {
   border-right: none;
 }
@@ -91,10 +92,11 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
+  .el-aside {
+    background: #002033;
+  }
 }
-.el-aside {
-  background: #002033;
-}
+
 .el-header {
   border-bottom: 1px solid #ddd;
   line-height: 60px;
@@ -102,12 +104,10 @@ export default {
 .el-icon-s-fold {
   font-size: 24px;
   vertical-align: middle;
-  margin-right: 10px;
 }
 .text {
   vertical-align: middle;
-  /* '这里不生效' */
-  /* margin-left: 40px; */
+  margin-left: 10px;
 }
 .my-dropdown {
   float: right;
@@ -115,7 +115,7 @@ export default {
 .el-dropdown-link {
   font-weight: 700;
 }
-img {
+.member {
   width: 30px;
   height: 30px;
   vertical-align: middle;
@@ -133,12 +133,6 @@ img {
 
 /* 问题 */
 /* 1、字体图标哪些地方用类名，哪些地方直接调用，有分类吗，还是具体地方自己查看文档 */
-/* 2、.text不生效
-.text {
-  vertical-align: middle;
-  margin-left: 40px;
-} */
-/* 3、这里写样式不能用less */
 /* 4、写了很多行内样式，这样会不会不太好，
     还是因为上课方便演示，直接写的，工作也是这样吗 */
 /* 5、路径别称怎么使用 */
