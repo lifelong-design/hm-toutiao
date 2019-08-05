@@ -8,7 +8,7 @@ import router from '@/router'
 // 导入样式
 import '@/styles/index.less'
 
-import axios from 'axios'
+import axios from '@/api'
 Vue.prototype.$http = axios
 
 Vue.config.productionTip = false

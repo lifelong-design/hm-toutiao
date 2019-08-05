@@ -4,6 +4,7 @@ import Vue from 'vue'
 import Home from '@/views/home'
 import Login from '@/views/login'
 import Welcome from '@/views/welcome'
+import Notfond from '@/views/404'
 
 import Article from '@/components/article'
 import Image from '@/components/image'
@@ -11,6 +12,8 @@ import Publish from '@/components/publish'
 import Fans from '@/components/fans'
 import Comment from '@/components/comment'
 import Setting from '@/components/setting'
+
+import store from '@/store'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -22,7 +25,6 @@ const router = new VueRouter({
     },
     {
       path: '/',
-      // name: 'home',
       component: Home,
       children: [
         {
@@ -61,8 +63,19 @@ const router = new VueRouter({
           component: Setting
         }
       ]
+    },
+    {
+      path: '*',
+      name: '404',
+      component: Notfond
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login') return next()
+  if (!store.getUser().token) return next('/login')
+  next()
 })
 
 export default router

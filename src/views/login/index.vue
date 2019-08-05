@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import store from '@/store'
 export default {
   data () {
     // 自定义校验函数
@@ -54,11 +55,14 @@ export default {
           console.log('success')
           this.$http
             .post(
-              'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
+              '/authorizations',
               this.loginForm
             )
             .then(res => {
-              // console.log(result)
+              console.log(res.data)
+
+              store.setUser(res.data.data)
+
               this.$router.push('/')
             })
             .catch(() => {
@@ -71,7 +75,7 @@ export default {
 }
 </script>
 
-<style scopend lang="less">
+<style scoped lang="less">
 .container {
   width: 100%;
   height: 100%;
