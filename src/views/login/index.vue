@@ -50,24 +50,32 @@ export default {
   },
   methods: {
     login () {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
-          console.log('success')
-          this.$http
-            .post(
-              '/authorizations',
-              this.loginForm
-            )
-            .then(res => {
-              console.log(res.data)
+          // console.log('success')
+          // this.$http
+          //   .post(
+          //     '/authorizations',
+          //     this.loginForm
+          //   )
+          //   .then(res => {
+          //     console.log(res.data)
 
-              store.setUser(res.data.data)
+          //     store.setUser(res.data.data)
 
-              this.$router.push('/')
-            })
-            .catch(() => {
-              this.$message.error('手机号或验证码错误')
-            })
+          //     this.$router.push('/')
+          //   })
+          //   .catch(() => {
+          //     this.$message.error('手机号或验证码错误')
+          //   })
+
+          try {
+            const { data: { data } } = await this.$http.post('/authorizations', this.loginForm)
+            store.setUser(data)
+            this.$router.push('/')
+          } catch {
+            this.$message.error('手机号或者密码错误')
+          }
         }
       })
     }
